@@ -27,26 +27,7 @@ class Birretta extends Component {
           latitudeDelta: 0.01,
           longitudeDelta: 0.01,
         },
-        markers: [
-        {
-          latitude: 45.486377, 
-          longitude: 9.217522,
-          title: 'Piazzale loreto',
-          subtitle: '1234 Foo Drive'
-        },
-        {
-          latitude: 45.487, 
-          longitude: 9.217522,
-          title: 'Piazzale loreto 2',
-          subtitle: 'Drive'
-        },
-        {
-          latitude: 45.487, 
-          longitude: 9.218,
-          title: 'Piazzale loreto 2',
-          subtitle: 'Drive'
-        }
-      ],
+        markers: [],
       status: false,
     }
   }
@@ -56,16 +37,24 @@ class Birretta extends Component {
       <View style={styles.container}>
       <MapView style={styles.map}
       region={this.state.mapRegion || undefined}
-
       annotations={this.state.markers.map(m => m)}
       />
-      <AddMarker slidePane={this.slidePane.bind(this)} status={this.state.status} />
+      <AddMarker slidePane={this.slidePane.bind(this)} addMarker={this.addMarker.bind(this)} status={this.state.status} />
       </View>
       );
   }
   slidePane() {
     this.setState({
       status: !this.state.status
+    });
+  }
+  addMarker(marker) {
+    console.log(marker);
+    var newMarkers = this.state.markers;
+    newMarkers.push(marker);
+    this.setState({
+      status: false,
+      markers: newMarkers,
     });
   }
 };
